@@ -1,6 +1,5 @@
-#BLEU Score: 0.2213885886251307 : ACCURACY
-#BLEU Score: 0.7292571723872933
 
+# Libraries and Modules
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import torch
 from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
@@ -35,20 +34,7 @@ def translate_text(text, model, tokenizer):
 
 # Function to calculate loss and BLEU score
 def calculate_loss_and_bleu(model, input_ids, attention_mask, target_text, tokenizer):
-    """
-    Calculate loss and BLEU score for the translation model.
 
-    Args:
-        model: Pre-trained translation model.
-        input_ids: Tokenized input text.
-        attention_mask: Attention mask for the input.
-        target_text: Ground truth translation for comparison.
-        tokenizer: Pre-trained tokenizer.
-
-    Returns:
-        loss: The computed loss value.
-        bleu: BLEU score of the model's translation.
-    """
     # Tokenize the target text
     target_ids = tokenizer(target_text, return_tensors="pt", max_length=512, truncation=True, padding=True)["input_ids"]
 
@@ -82,7 +68,7 @@ if __name__ == "__main__":
     english_text = input("ENGLISH: ")
 
     # Specify a target translation for comparison (you should use a real translation in practice)
-    target_translation = input("TARGET (Ground truth translation): ")  # Example: "Magandang umaga Ms. Anderson"
+    target_translation = input("TARGET (Ground truth translation): ")  # example: "Magandang umaga"
 
     # Translate to Tagalog
     tagalog_translation, input_ids, attention_mask = translate_text(english_text, model, tokenizer)
